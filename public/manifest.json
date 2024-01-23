@@ -12,8 +12,8 @@
   "content_scripts": [
     {
       "matches": ["https://www.zhihu.com/*"],
-      "js": ["main.js"],
-      "css": ["main.css"],
+      "js": ["game.js"],
+      "css": ["game.css"],
       "run_at": "document_end"
     }
   ],

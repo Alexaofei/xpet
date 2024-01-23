@@ -2,14 +2,34 @@
   <img class="enter" @click="togglePop" :src="pic" alt="" />
   <Transition name="pop">
     <div v-show="show" class="pop_wrapper">
-      <ul class="nav nav-tabs">
+      <TabGroup>
+        <TabList>
+          <Tab>Tab 1</Tab>
+          <Tab>Tab 2</Tab>
+          <Tab>Tab 3</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>Content 1</TabPanel>
+          <TabPanel>Content 2</TabPanel>
+          <TabPanel>Content 3</TabPanel>
+        </TabPanels>
+      </TabGroup>
+      <!-- <TabGroup>
+        <TabList>
+          <Tab v-for="(item, index) in tabList" :key="index">{{ item.name }}</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel v-if="tabList[0].active"><Tokens /></TabPanel>
+        </TabPanels>
+      </TabGroup> -->
+      <!-- <ul class="nav nav-tabs">
         <li v-for="(item, index) in tabList" :key="index" class="nav-item">
           <a :class="`nav-link ${item.active ? 'active' : ''}`" @click="switchNav(index)">{{ item.name }}</a>
         </li>
       </ul>
       <div class="tab-content">
         <Tokens v-if="tabList[0].active" />
-      </div>
+      </div> -->
     </div>
   </Transition>
 </template>
@@ -17,9 +37,9 @@
 import { ref, reactive } from 'vue';
 import pic from './assets/logo.jpg';
 import Tokens from './components/tokens/index.vue';
-import { checkConnect, getWallet, createWalletByPhrase } from '@/utils';
+import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue';
 export default {
-  components: { Tokens },
+  components: { Tokens, TabGroup, TabList, Tab, TabPanels, TabPanel },
   setup() {
     let show = ref(false);
     const tabList = reactive([
@@ -38,14 +58,7 @@ export default {
       pic: chrome.runtime ? chrome.runtime.getURL('images/logo.jpg') : pic,
     };
   },
-  async mounted() {
-    const isConnect = await checkConnect();
-    // console.log("isConnect===", isConnect);
-    // const wallet = getWallet();
-    // display cheap program lounge couple top parent polar right garage finish wire
-    createWalletByPhrase('', '0x6512ddcac2d0778002b32c740808fb838d6c14aeac3a7bde3bda050483dcf2ec');
-    // console.log("wallet===", wallet, wallet.privateKey);
-  },
+  async mounted() {},
   methods: {
     redirect(type) {
       switch (type) {
