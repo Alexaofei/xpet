@@ -2,34 +2,14 @@
   <img class="enter" @click="togglePop" :src="pic" alt="" />
   <Transition name="pop">
     <div v-show="show" class="pop_wrapper">
-      <TabGroup>
-        <TabList>
-          <Tab>Tab 1</Tab>
-          <Tab>Tab 2</Tab>
-          <Tab>Tab 3</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>Content 1</TabPanel>
-          <TabPanel>Content 2</TabPanel>
-          <TabPanel>Content 3</TabPanel>
-        </TabPanels>
-      </TabGroup>
-      <!-- <TabGroup>
-        <TabList>
-          <Tab v-for="(item, index) in tabList" :key="index">{{ item.name }}</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel v-if="tabList[0].active"><Tokens /></TabPanel>
-        </TabPanels>
-      </TabGroup> -->
-      <!-- <ul class="nav nav-tabs">
+      <ul class="nav nav-tabs">
         <li v-for="(item, index) in tabList" :key="index" class="nav-item">
           <a :class="`nav-link ${item.active ? 'active' : ''}`" @click="switchNav(index)">{{ item.name }}</a>
         </li>
       </ul>
       <div class="tab-content">
         <Tokens v-if="tabList[0].active" />
-      </div> -->
+      </div>
     </div>
   </Transition>
 </template>
@@ -37,10 +17,12 @@
 import { ref, reactive } from 'vue';
 import pic from './assets/logo.jpg';
 import Tokens from './components/tokens/index.vue';
-import { TabGroup, TabList, Tab, TabPanels, TabPanel } from '@headlessui/vue';
+import { storeA } from '@/piniaStore/storeA';
 export default {
-  components: { Tokens, TabGroup, TabList, Tab, TabPanels, TabPanel },
+  components: { Tokens },
   setup() {
+    const piniaStoreA = storeA();
+    console.log(11, piniaStoreA.piniaMsg);
     let show = ref(false);
     const tabList = reactive([
       {
@@ -56,6 +38,7 @@ export default {
       tabList,
       show,
       pic: chrome.runtime ? chrome.runtime.getURL('images/logo.jpg') : pic,
+      piniaStoreA,
     };
   },
   async mounted() {},
@@ -71,6 +54,7 @@ export default {
       }
     },
     togglePop() {
+      this.piniaStoreA.piniaMsg = 'changed';
       this.show = !this.show;
     },
     switchNav(index) {
