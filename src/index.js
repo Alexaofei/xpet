@@ -1,5 +1,5 @@
 import '@/style/style.less';
-import '@/style/app.scss';
+import '@/style/global.scss';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
 import App from '@/app.vue';

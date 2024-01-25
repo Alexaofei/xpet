@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-export const storeA = defineStore('storeA', {
+export const game = defineStore('game', {
   state: () => {
     return {
       piniaMsg: 'hello aofei',

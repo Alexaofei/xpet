@@ -10,7 +10,9 @@
 
 <script setup>
 import { reactive, onMounted } from 'vue';
-import pic from '../../assets/logo.jpg';
+import pic from '@/assets/logo.jpg';
+import { game } from '@/piniaStore/game';
+const gameStore = game();
 const picSrc = chrome.runtime ? chrome.runtime.getURL('images/logo.jpg') : pic;
 const coins = reactive([
   {
@@ -34,6 +36,9 @@ const coins = reactive([
 ]);
 
 onMounted(() => {
+  setInterval(() => {
+    console.log(gameStore.piniaMsg);
+  }, 3000);
   console.log('this is tokensPage');
 });
 function changeName() {
@@ -42,7 +47,7 @@ function changeName() {
 </script>
 
 <style lang="less" scoped>
-@import '../../style/style.less';
+@import '@/style/style.less';
 @iconWidth: 35px;
 .list-item {
   position: relative;

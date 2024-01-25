@@ -1,7 +1,9 @@
-import '@/style/style.less';
-import '@/style/app.scss';
+import 'spectre.css';
+import '@/assets/icon/iconfont.css';
+import '@/style/global.scss';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import App from '@/app.vue';
+import router from './router';
+import App from '@/views/wallet/app.vue';
 
-createApp(App).use(createPinia()).mount('#app');
+createApp(App).use(router).use(createPinia()).mount('#app');

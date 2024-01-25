@@ -25,6 +25,13 @@ module.exports = {
   // externals: {
   //   vue: 'Vue',
   // },
+  // css: {
+  //   loaderOptions: {
+  //     sass: {
+  //       data: `import '@/style/variables.scss'`,
+  //     },
+  //   },
+  // },
   module: {
     rules: [
       {
@@ -40,22 +47,20 @@ module.exports = {
           },
         ],
       },
-      // {
-      //   test: /\.(css)$/,
-      //   use: [
-      //     {
-      //       loader: 'postcss-loader',
-      //       options: {
-      //         postcssOptions: {
-      //           plugins: ['postcss-preset-env'],
-      //         },
-      //       },
-      //     },
-      //   ],
-      // },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: ['postcss-preset-env'],
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.less$/,
@@ -63,7 +68,16 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              additionalData: `@import '@/style/variables.scss';`,
+            },
+          },
+        ],
       },
       {
         test: /\.js$/,
@@ -83,13 +97,14 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.'],
+    extensions: ['.vue', '.js', '.css', '.less', 'scss'],
     alias: {
       '@': '/src',
     },
   },
   plugins: [
     // new BundleAnalyzerPlugin(),
+    new MiniCssExtractPlugin(),
     new webpack.DefinePlugin({
       __VUE_OPTIONS_API__: true,
       __VUE_PROD_DEVTOOLS__: false,
@@ -97,7 +112,7 @@ module.exports = {
     }),
     new VueLoaderPlugin(),
     new HTMLWebpackPlugin({
-      template: path.resolve(__dirname, '../src/index.html'),
+      template: path.resolve(__dirname, '../src/views/wallet/index.html'),
       chunks: ['wallet'],
     }),
     new CopyWebpackPlugin({
