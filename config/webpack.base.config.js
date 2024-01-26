@@ -100,6 +100,8 @@ module.exports = {
     extensions: ['.vue', '.js', '.css', '.less', 'scss'],
     alias: {
       '@': '/src',
+      '@wallet': '/src/views/wallet',
+      '@game': '/src/views/game',
     },
   },
   plugins: [

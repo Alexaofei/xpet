@@ -9,6 +9,10 @@
     "48": "favicon.ico",
     "128": "favicon.ico"
   },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["tabs"],
   "content_scripts": [
     {
       "matches": ["https://*.zhihu.com/*"],

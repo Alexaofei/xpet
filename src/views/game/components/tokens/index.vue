@@ -36,10 +36,7 @@ const coins = reactive([
 ]);
 
 onMounted(() => {
-  setInterval(() => {
-    console.log(gameStore.piniaMsg);
-  }, 3000);
-  console.log('this is tokensPage');
+  console.log('this is tokensPage', gameStore.piniaMsg);
 });
 function changeName() {
   name.b = 'b';

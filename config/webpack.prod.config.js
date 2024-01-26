@@ -23,7 +23,7 @@ const prodConfig = {
         extractComments: false,
         terserOptions: {
           compress: {
-            drop_console: true,
+            drop_console: false,
           },
         },
         exclude: [/\/background/],

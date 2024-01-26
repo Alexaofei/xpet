@@ -21,7 +21,7 @@
       </svg>
       <ul class="tab tab-block">
         <li v-for="(item, index) in tabList" :key="index" :class="`tab-item ${item.active ? 'active' : ''}`">
-          <a href="javascript:" @click="switchTab(index)">{{ item.name }}</a>
+          <span @click="switchTab(index)">{{ item.name }}</span>
         </li>
       </ul>
       <div class="tab-content">
@@ -72,28 +72,20 @@ export default {
   },
   async mounted() {},
   methods: {
-    redirect(type) {
-      switch (type) {
-        case 1:
-          window.open(chrome.runtime.getURL('index.html'));
-          break;
-        case 2:
-          this.$router.push('/pageA');
-          break;
-      }
-    },
     togglePop() {
       this.gameStore.piniaMsg = 'changed';
       this.show = !this.show;
     },
     switchTab(index) {
-      this.tabList.forEach((v, i) => {
-        if (v.url) {
-          window.open(chrome.runtime.getURL(v.url));
-        } else {
-          v.active = +i === +index;
-        }
-      });
+      const _curTab = this.tabList[index];
+      if (_curTab.url) {
+        window.open(chrome.runtime.getURL('index.html'), 'wallet', 'height=600, width=420,titlebar=0,toolbar=0,location=0,status=0,menubar=0');
+      } else {
+        this.tabList.forEach((v, i) => {
+          v.active = false;
+        });
+        _curTab.active = true;
+      }
     },
   },
 };

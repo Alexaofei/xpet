@@ -1,10 +1,43 @@
-
-html,body{
-  font-family: 'TwitterChirp';
+// @import '@/assets/fontfamily/font.css';
+html,
+body {
+  font-family: TwitterChirp, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 .btn.circle {
   border-radius: 36px;
 }
-.tab .tab-item a:focus{
+.tab .tab-item a:focus,
+.tab .tab-item span:focus {
   box-shadow: none;
+}
+.tab .tab-item span {
+  border-bottom: 0.1rem solid transparent;
+  color: inherit;
+  display: block;
+  margin: 0 0.4rem 0 0;
+  padding: 0.4rem 0.2rem 0.3rem 0.2rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+.tab .tab-item span:focus,
+.tab .tab-item span:hover {
+  color: $--dark-color;
+}
+
+.tab .tab-item.active span,
+.tab .tab-item span.active {
+  border-bottom-color: $--dark-color;
+  color: $--dark-color;
+}
+.btn {
+  border-radius: 8px;
+  &.loading::after {
+    border-left-color: #fff;
+    border-bottom-color: #fff;
+  }
+}
+.flex-center {
+  display: flex;
+  align-items: center;
 }
